@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  python-app:
+    build: .
+    command: python src/main.py
+    image: python:3.8
+    ports:
+      - "8001:8001"
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: lappis
+      MONGO_INITDB_ROOT_PASSWORD: lappis
+    volumes:
+      - /data:/data/db
